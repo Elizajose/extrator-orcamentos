@@ -1,10 +1,11 @@
+import streamlit as st
 import os
 import re
 from google import genai
+from google.genai.types import exceptions
+
 
 API_KEY = st.secrets["GEMINI_API_KEY"]
-client = genai.Client(api_key=API_KEY)
-
 client = genai.Client(api_key=API_KEY)
 
 def analisar_precos_direto_no_pdf(caminho_pdf, lista_produtos_txt):
