@@ -13,9 +13,10 @@ def analisar_precos_direto_no_pdf(caminho_pdf, lista_produtos_txt):
     Lista de busca: {lista_produtos_txt}
     
     Regras de Extração CRÍTICAS:
-    1. PRODUTOS: Encontre a correspondência no PDF para os itens buscados.
-    2. FORNECEDOR: Identifique a Razão Social ("nome_empresa") e o "cnpj" do emissor. Se não achar, use "Não informado".
-    3. PREÇO REAL (ATENÇÃO MÁXIMA): O "preco_unitario" deve refletir o CUSTO REAL FINAL do produto. 
+    1. PRODUTOS (CORRESPONDÊNCIA DE SIGNIFICADO): Avalie a ESSÊNCIA do produto. Você DEVE aceitar abreviações fiscais comuns (ex: "Cad" para Caderno, "Refrig" para Refrigerante). O que você NÃO PODE aceitar são peças, acessórios ou itens de manutenção (ex: "Pé para Sofá" se a busca for "Sofá"). O produto vendido no PDF deve ser o equipamento principal solicitado.
+    2. ANTI-FALSO POSITIVO: Se a descrição do PDF listar compatibilidade com vários itens (ex: "Pe Palito Rack Madeira Mesa Sofas"), isso é a prova de que é um ACESSÓRIO, não o móvel em si. Rejeite e ignore o item.
+    3. FORNECEDOR: Identifique a Razão Social ("nome_empresa") e o "cnpj" do emissor. Se não achar, use "Não informado".
+    4. PREÇO REAL (ATENÇÃO MÁXIMA): O "preco_unitario" deve refletir o CUSTO REAL FINAL do produto. 
        - Se o documento destacar impostos adicionais por item (como IPI ou ST - Substituição Tributária), SOME esses valores ao preço unitário.
        - Se o documento apresentar descontos aplicados ao item, SUBTRAIA do valor unitário.
        - Retorne apenas o número float com ponto (ex: 2399.90).
