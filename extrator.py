@@ -2,7 +2,6 @@ import streamlit as st
 import os
 import re
 from google import genai
-from google.genai.types import exceptions
 
 
 API_KEY = st.secrets["GEMINI_API_KEY"]
@@ -39,4 +38,8 @@ def analisar_precos_direto_no_pdf(caminho_pdf, lista_produtos_txt):
             return f"Erro na IA: Nenhum formato JSON válido foi encontrado."
             
     except Exception as e:
-        return f"Erro na comunicação com a API: {str(e)}"
+        erro_str = str(e)
+        if "429" in erro_str or "RESOURCE_EXHAUSTED" in erro_str:
+            return f"RATE_LIMIT_ERROR: {erro_str}"
+        else:
+            return f"Erro genérico na comunicação com a API: {erro_str}"
